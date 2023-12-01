@@ -8,6 +8,18 @@ struct Day01: AdventDay {
             .map { $0.first! * 10 + $0.last! }
             .reduce(0, +)
     }
+    
+    func testPart1() -> Bool {
+        let challenge = Self(
+            data: """
+                1abc2
+                pqr3stu8vwx
+                a1b2c3d4e5f
+                treb7uchet
+                """
+        )
+        return String(describing: challenge.part1()) == "142"
+    }
 
     func part2() -> Any {
         data.split(separator: "\n").lazy
@@ -116,5 +128,20 @@ struct Day01: AdventDay {
                 return first * 10 + last
             }
             .reduce(0, +)
+    }
+
+    func testPart2() -> Bool {
+        let challenge = Self(
+            data: """
+                two1nine
+                eightwothree
+                abcone2threexyz
+                xtwone3four
+                4nineeightseven2
+                zoneight234
+                7pqrstsixteen
+                """
+        )
+        return String(describing: challenge.part2()) == "281"
     }
 }

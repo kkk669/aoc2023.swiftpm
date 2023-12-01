@@ -21,4 +21,32 @@ struct Day00: AdventDay {
         // Sum the maximum entries in each set of data
         entities.map { $0.max() ?? 0 }.reduce(0, +)
     }
+
+    static let testData = """
+        1000
+        2000
+        3000
+
+        4000
+
+        5000
+        6000
+
+        7000
+        8000
+        9000
+
+        10000
+
+        """
+
+    func testPart1() -> Bool {
+        let challenge = Self(data: Self.testData)
+        return String(describing: challenge.part1()) == "6000"
+    }
+
+    func testPart2() -> Bool {
+        let challenge = Self(data: Self.testData)
+        return String(describing: challenge.part2()) == "32000"
+    }
 }

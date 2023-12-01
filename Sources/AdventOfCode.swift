@@ -49,11 +49,25 @@ struct AdventOfCode: App {
         return timing
     }
 
+    func test(part: () async throws -> Bool, named: String) async {
+        do {
+            if try await part() {
+                print("\(named): test passed")
+            } else {
+                print("\(named): test failed")
+            }
+        } catch {
+            print("\(named): Failed with error: \(error)")
+        }
+    }
+
     func run() async {
         let challenge = selectedChallenge
         print("Executing Advent of Code challenge \(challenge.day)...")
 
+        await test(part: challenge.testPart1, named: "Part 1")
         let timing1 = await run(part: challenge.part1, named: "Part 1")
+        await test(part: challenge.testPart2, named: "Part 2")
         let timing2 = await run(part: challenge.part2, named: "Part 2")
 
         if benchmark {
