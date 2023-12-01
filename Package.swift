@@ -1,42 +1,40 @@
 // swift-tools-version: 5.9
+import AppleProductTypes
 import PackageDescription
 
-let dependencies: [Target.Dependency] = [
-    .product(name: "Algorithms", package: "swift-algorithms"),
-    .product(name: "Collections", package: "swift-collections"),
-    .product(name: "ArgumentParser", package: "swift-argument-parser"),
-]
-
 let package = Package(
-    name: "AdventOfCode",
-    platforms: [.macOS(.v13)],
+    name: "aoc2023.swiftpm",
+    platforms: [.iOS(.v17)],
+    products: [
+        .iOSApplication(
+            name: "AdventOfCode",
+            targets: ["AdventOfCode"],
+            displayVersion: "1.0",
+            bundleVersion: "1",
+            appIcon: .placeholder(icon: .star),
+            accentColor: .presetColor(.green),
+            supportedDeviceFamilies: [
+                .pad,
+                .phone,
+            ],
+            supportedInterfaceOrientations: [
+                .portrait,
+                .landscapeRight,
+                .landscapeLeft,
+                .portraitUpsideDown(.when(deviceFamilies: [.pad])),
+            ]
+        )
+    ],
     dependencies: [
-        .package(
-            url: "https://github.com/apple/swift-algorithms.git",
-            .upToNextMajor(from: "1.2.0")
-        ),
-        .package(
-            url: "https://github.com/apple/swift-collections.git",
-            .upToNextMajor(from: "1.0.0")
-        ),
-        .package(
-            url: "https://github.com/apple/swift-argument-parser.git",
-            .upToNextMajor(from: "1.2.0")
-        ),
-        .package(
-            url: "https://github.com/apple/swift-format.git",
-            .upToNextMajor(from: "509.0.0")
-        ),
+        .package(url: "https://github.com/apple/swift-collections", from: "1.0.0")
     ],
     targets: [
         .executableTarget(
             name: "AdventOfCode",
-            dependencies: dependencies,
+            dependencies: [
+                .product(name: "Collections", package: "swift-collections")
+            ],
             resources: [.copy("Data")]
-        ),
-        .testTarget(
-            name: "AdventOfCodeTests",
-            dependencies: ["AdventOfCode"] + dependencies
-        ),
+        )
     ]
 )

@@ -1,4 +1,4 @@
-import ArgumentParser
+import SwiftUI
 
 // Add each new day implementation to this array:
 let allChallenges: [any AdventDay] = [
@@ -6,24 +6,22 @@ let allChallenges: [any AdventDay] = [
 ]
 
 @main
-struct AdventOfCode: AsyncParsableCommand {
-    @Argument(help: "The day of the challenge. For December 1st, use '1'.")
+struct AdventOfCode: App {
+    /// The day of the challenge. For December 1st, use '1'.
     var day: Int?
 
-    @Flag(help: "Benchmark the time taken by the solution")
+    /// Benchmark the time taken by the solution.
     var benchmark: Bool = false
 
     /// The selected day, or the latest day if no selection is provided.
     var selectedChallenge: any AdventDay {
-        get throws {
-            guard let day else {
-                return latestChallenge
-            }
-            guard let challenge = allChallenges.first(where: { $0.day == day }) else {
-                throw ValidationError("No solution found for day \(day)")
-            }
-            return challenge
+        guard let day else {
+            return latestChallenge
         }
+        guard let challenge = allChallenges.first(where: { $0.day == day }) else {
+            fatalError("No solution found for day \(day)")
+        }
+        return challenge
     }
 
     /// The latest challenge in `allChallenges`.
@@ -50,8 +48,8 @@ struct AdventOfCode: AsyncParsableCommand {
         return timing
     }
 
-    func run() async throws {
-        let challenge = try selectedChallenge
+    func run() async {
+        let challenge = selectedChallenge
         print("Executing Advent of Code challenge \(challenge.day)...")
 
         let timing1 = await run(part: challenge.part1, named: "Part 1")
@@ -62,6 +60,14 @@ struct AdventOfCode: AsyncParsableCommand {
             #if DEBUG
                 print("Looks like you're benchmarking debug code. Try swift run -c release")
             #endif
+        }
+    }
+
+    var body: some Scene {
+        WindowGroup {
+            Button("Run") {
+                Task { await run() }
+            }
         }
     }
 }
