@@ -19,8 +19,7 @@ select the parent directory (`aoc2023.swiftpm`).
 The challenges assume three files (replace 00 with the day of the challenge).
 
 - `Data/Day00.txt`: the input data provided for the challenge
-- `Sources/Day00.swift`: the code to solve the challenge
-- `Tests/Day00.swift`: any unit tests that you want to include
+- `Day00.swift`: the code to solve the challenge
 
 To start a new day's challenge, make a copy of these files and update as
 necessary. The `AdventOfCode.swift` file controls which day's challenge is run.
