@@ -35,7 +35,10 @@ let package = Package(
                 .product(name: "Collections", package: "swift-collections")
             ],
             path: ".",
-            resources: [.copy("Data")]
+            resources: [.copy("Data")],
+            swiftSettings: [
+                .enableUpcomingFeature("BareSlashRegexLiterals")
+            ]
         )
     ]
 )

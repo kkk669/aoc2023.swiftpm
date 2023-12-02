@@ -4,6 +4,7 @@ import SwiftUI
 let allChallenges: [any AdventDay] = [
     Day00(),
     Day01(),
+    Day02(),
 ]
 
 @main
