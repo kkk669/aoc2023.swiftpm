@@ -8,7 +8,7 @@ struct Day01: AdventDay {
             .map { $0.first! * 10 + $0.last! }
             .reduce(0, +)
     }
-    
+
     func testPart1() -> Bool {
         let challenge = Self(
             data: """
